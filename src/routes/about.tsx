@@ -109,5 +109,3 @@ function AboutPage() {
     </div>
   );
 }
-
-void Users;
