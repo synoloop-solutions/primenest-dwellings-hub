@@ -16,6 +16,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AgentsRouteImport } from './routes/agents'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
@@ -56,6 +57,11 @@ const AgentsRoute = AgentsRouteImport.update({
   path: '/agents',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -79,6 +85,7 @@ const AgentsSlugRoute = AgentsSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/agents': typeof AgentsRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
@@ -92,6 +99,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/agents': typeof AgentsRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
@@ -106,6 +114,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/agents': typeof AgentsRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/agents'
     | '/blog'
     | '/compare'
@@ -134,6 +144,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/agents'
     | '/blog'
     | '/compare'
@@ -147,6 +158,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/agents'
     | '/blog'
     | '/compare'
@@ -161,6 +173,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AgentsRoute: typeof AgentsRouteWithChildren
   BlogRoute: typeof BlogRouteWithChildren
   CompareRoute: typeof CompareRoute
@@ -219,6 +232,13 @@ declare module '@tanstack/react-router' {
       path: '/agents'
       fullPath: '/agents'
       preLoaderRoute: typeof AgentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -287,6 +307,7 @@ const PropertiesRouteWithChildren = PropertiesRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AgentsRoute: AgentsRouteWithChildren,
   BlogRoute: BlogRouteWithChildren,
   CompareRoute: CompareRoute,
