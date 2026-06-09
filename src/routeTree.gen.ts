@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SavedSearchesRouteImport } from './routes/saved-searches'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as PrivacyRouteImport } from './routes/privacy'
@@ -29,6 +30,11 @@ import { Route as AgentsSlugRouteImport } from './routes/agents.$slug'
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SavedSearchesRoute = SavedSearchesRouteImport.update({
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/agents/$slug': typeof AgentsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -138,6 +145,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/agents/$slug': typeof AgentsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -157,6 +165,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/agents/$slug': typeof AgentsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -177,6 +186,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/properties'
     | '/saved-searches'
+    | '/sitemap.xml'
     | '/terms'
     | '/agents/$slug'
     | '/blog/$slug'
@@ -195,6 +205,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/properties'
     | '/saved-searches'
+    | '/sitemap.xml'
     | '/terms'
     | '/agents/$slug'
     | '/blog/$slug'
@@ -213,6 +224,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/properties'
     | '/saved-searches'
+    | '/sitemap.xml'
     | '/terms'
     | '/agents/$slug'
     | '/blog/$slug'
@@ -232,6 +244,7 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
   SavedSearchesRoute: typeof SavedSearchesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
 }
 
@@ -242,6 +255,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/saved-searches': {
@@ -398,8 +418,19 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
   SavedSearchesRoute: SavedSearchesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
