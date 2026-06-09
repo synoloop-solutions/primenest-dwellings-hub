@@ -104,7 +104,7 @@ function Stat({ icon: Icon, label, value }: { icon: typeof BedDouble; label: str
 }
 
 function PropertyDetail() {
-  const { property } = Route.useLoaderData();
+  const { property } = Route.useLoaderData() as { property: Property };
   const agent = getAgent(property.agentId)!;
   const { isFavorite, toggle } = useFavorites();
   const { inCompare, toggle: toggleCompare, count, max } = useCompare();
