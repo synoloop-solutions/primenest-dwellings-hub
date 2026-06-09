@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SavedSearchesRouteImport } from './routes/saved-searches'
 import { Route as PropertiesRouteImport } from './routes/properties'
+import { Route as MortgageCalculatorRouteImport } from './routes/mortgage-calculator'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AgentsRouteImport } from './routes/agents'
@@ -27,6 +28,11 @@ const SavedSearchesRoute = SavedSearchesRouteImport.update({
 const PropertiesRoute = PropertiesRouteImport.update({
   id: '/properties',
   path: '/properties',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MortgageCalculatorRoute = MortgageCalculatorRouteImport.update({
+  id: '/mortgage-calculator',
+  path: '/mortgage-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompareRoute = CompareRouteImport.update({
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/agents': typeof AgentsRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
+  '/mortgage-calculator': typeof MortgageCalculatorRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
   '/agents/$slug': typeof AgentsSlugRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/agents': typeof AgentsRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
+  '/mortgage-calculator': typeof MortgageCalculatorRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
   '/agents/$slug': typeof AgentsSlugRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/agents': typeof AgentsRouteWithChildren
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
+  '/mortgage-calculator': typeof MortgageCalculatorRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
   '/agents/$slug': typeof AgentsSlugRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/agents'
     | '/blog'
     | '/compare'
+    | '/mortgage-calculator'
     | '/properties'
     | '/saved-searches'
     | '/agents/$slug'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/agents'
     | '/blog'
     | '/compare'
+    | '/mortgage-calculator'
     | '/properties'
     | '/saved-searches'
     | '/agents/$slug'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/agents'
     | '/blog'
     | '/compare'
+    | '/mortgage-calculator'
     | '/properties'
     | '/saved-searches'
     | '/agents/$slug'
@@ -140,6 +152,7 @@ export interface RootRouteChildren {
   AgentsRoute: typeof AgentsRouteWithChildren
   BlogRoute: typeof BlogRouteWithChildren
   CompareRoute: typeof CompareRoute
+  MortgageCalculatorRoute: typeof MortgageCalculatorRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
   SavedSearchesRoute: typeof SavedSearchesRoute
 }
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       path: '/properties'
       fullPath: '/properties'
       preLoaderRoute: typeof PropertiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mortgage-calculator': {
+      id: '/mortgage-calculator'
+      path: '/mortgage-calculator'
+      fullPath: '/mortgage-calculator'
+      preLoaderRoute: typeof MortgageCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/compare': {
@@ -250,6 +270,7 @@ const rootRouteChildren: RootRouteChildren = {
   AgentsRoute: AgentsRouteWithChildren,
   BlogRoute: BlogRouteWithChildren,
   CompareRoute: CompareRoute,
+  MortgageCalculatorRoute: MortgageCalculatorRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
   SavedSearchesRoute: SavedSearchesRoute,
 }
