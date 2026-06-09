@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SavedSearchesRouteImport } from './routes/saved-searches'
 import { Route as PropertiesRouteImport } from './routes/properties'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MortgageCalculatorRouteImport } from './routes/mortgage-calculator'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
@@ -30,6 +31,11 @@ const SavedSearchesRoute = SavedSearchesRouteImport.update({
 const PropertiesRoute = PropertiesRouteImport.update({
   id: '/properties',
   path: '/properties',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MortgageCalculatorRoute = MortgageCalculatorRouteImport.update({
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/mortgage-calculator': typeof MortgageCalculatorRoute
+  '/privacy': typeof PrivacyRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
   '/agents/$slug': typeof AgentsSlugRoute
@@ -105,6 +112,7 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/mortgage-calculator': typeof MortgageCalculatorRoute
+  '/privacy': typeof PrivacyRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
   '/agents/$slug': typeof AgentsSlugRoute
@@ -120,6 +128,7 @@ export interface FileRoutesById {
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/mortgage-calculator': typeof MortgageCalculatorRoute
+  '/privacy': typeof PrivacyRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
   '/agents/$slug': typeof AgentsSlugRoute
@@ -136,6 +145,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/mortgage-calculator'
+    | '/privacy'
     | '/properties'
     | '/saved-searches'
     | '/agents/$slug'
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/mortgage-calculator'
+    | '/privacy'
     | '/properties'
     | '/saved-searches'
     | '/agents/$slug'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/contact'
     | '/mortgage-calculator'
+    | '/privacy'
     | '/properties'
     | '/saved-searches'
     | '/agents/$slug'
@@ -179,6 +191,7 @@ export interface RootRouteChildren {
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
   MortgageCalculatorRoute: typeof MortgageCalculatorRoute
+  PrivacyRoute: typeof PrivacyRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
   SavedSearchesRoute: typeof SavedSearchesRoute
 }
@@ -197,6 +210,13 @@ declare module '@tanstack/react-router' {
       path: '/properties'
       fullPath: '/properties'
       preLoaderRoute: typeof PropertiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mortgage-calculator': {
@@ -313,9 +333,20 @@ const rootRouteChildren: RootRouteChildren = {
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
   MortgageCalculatorRoute: MortgageCalculatorRoute,
+  PrivacyRoute: PrivacyRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
   SavedSearchesRoute: SavedSearchesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
