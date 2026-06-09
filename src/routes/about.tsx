@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ShieldCheck, Heart, TrendingUp, Users, Target, Award } from "lucide-react";
+import { ShieldCheck, Heart, TrendingUp, Target, Award } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { TestimonialCarousel } from "@/components/testimonial-carousel";
 import { Button } from "@/components/ui/button";
