@@ -14,6 +14,7 @@ import { Route as SavedSearchesRouteImport } from './routes/saved-searches'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MortgageCalculatorRouteImport } from './routes/mortgage-calculator'
+import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
 import { Route as BlogRouteImport } from './routes/blog'
@@ -47,6 +48,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const MortgageCalculatorRoute = MortgageCalculatorRouteImport.update({
   id: '/mortgage-calculator',
   path: '/mortgage-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiePolicyRoute = CookiePolicyRouteImport.update({
+  id: '/cookie-policy',
+  path: '/cookie-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/mortgage-calculator': typeof MortgageCalculatorRoute
   '/privacy': typeof PrivacyRoute
   '/properties': typeof PropertiesRouteWithChildren
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/mortgage-calculator': typeof MortgageCalculatorRoute
   '/privacy': typeof PrivacyRoute
   '/properties': typeof PropertiesRouteWithChildren
@@ -135,6 +143,7 @@ export interface FileRoutesById {
   '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
+  '/cookie-policy': typeof CookiePolicyRoute
   '/mortgage-calculator': typeof MortgageCalculatorRoute
   '/privacy': typeof PrivacyRoute
   '/properties': typeof PropertiesRouteWithChildren
@@ -153,6 +162,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/compare'
     | '/contact'
+    | '/cookie-policy'
     | '/mortgage-calculator'
     | '/privacy'
     | '/properties'
@@ -169,6 +179,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/compare'
     | '/contact'
+    | '/cookie-policy'
     | '/mortgage-calculator'
     | '/privacy'
     | '/properties'
@@ -185,6 +196,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/compare'
     | '/contact'
+    | '/cookie-policy'
     | '/mortgage-calculator'
     | '/privacy'
     | '/properties'
@@ -202,6 +214,7 @@ export interface RootRouteChildren {
   BlogRoute: typeof BlogRouteWithChildren
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
+  CookiePolicyRoute: typeof CookiePolicyRoute
   MortgageCalculatorRoute: typeof MortgageCalculatorRoute
   PrivacyRoute: typeof PrivacyRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
@@ -244,6 +257,13 @@ declare module '@tanstack/react-router' {
       path: '/mortgage-calculator'
       fullPath: '/mortgage-calculator'
       preLoaderRoute: typeof MortgageCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookie-policy': {
+      id: '/cookie-policy'
+      path: '/cookie-policy'
+      fullPath: '/cookie-policy'
+      preLoaderRoute: typeof CookiePolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -352,6 +372,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRouteWithChildren,
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
+  CookiePolicyRoute: CookiePolicyRoute,
   MortgageCalculatorRoute: MortgageCalculatorRoute,
   PrivacyRoute: PrivacyRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
