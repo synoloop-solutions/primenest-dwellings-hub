@@ -11,6 +11,12 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { CompareBar } from "@/components/compare-bar";
+import { CookieConsentBanner } from "@/components/cookie-consent-banner";
+import { Toaster } from "@/components/ui/sonner";
+
 
 function NotFoundComponent() {
   return (
