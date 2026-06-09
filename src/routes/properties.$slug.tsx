@@ -7,6 +7,7 @@ import {
 import { getProperty, properties, statusLabels, typeLabels } from "@/data/properties";
 import { getAgent } from "@/data/agents";
 import { formatPrice, formatArea, formatNumber, formatDate } from "@/lib/format";
+import type { Property } from "@/data/types";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ImageGallery } from "@/components/image-gallery";
