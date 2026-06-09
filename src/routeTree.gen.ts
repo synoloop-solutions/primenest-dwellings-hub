@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SavedSearchesRouteImport } from './routes/saved-searches'
 import { Route as PropertiesRouteImport } from './routes/properties'
+import { Route as CompareRouteImport } from './routes/compare'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 
@@ -22,6 +23,11 @@ const SavedSearchesRoute = SavedSearchesRouteImport.update({
 const PropertiesRoute = PropertiesRouteImport.update({
   id: '/properties',
   path: '/properties',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompareRoute = CompareRouteImport.update({
+  id: '/compare',
+  path: '/compare',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -37,12 +43,14 @@ const PropertiesSlugRoute = PropertiesSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/compare': typeof CompareRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
   '/properties/$slug': typeof PropertiesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/compare': typeof CompareRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
   '/properties/$slug': typeof PropertiesSlugRoute
@@ -50,20 +58,33 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/compare': typeof CompareRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
   '/properties/$slug': typeof PropertiesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/properties' | '/saved-searches' | '/properties/$slug'
+  fullPaths:
+    | '/'
+    | '/compare'
+    | '/properties'
+    | '/saved-searches'
+    | '/properties/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/properties' | '/saved-searches' | '/properties/$slug'
-  id: '__root__' | '/' | '/properties' | '/saved-searches' | '/properties/$slug'
+  to: '/' | '/compare' | '/properties' | '/saved-searches' | '/properties/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/compare'
+    | '/properties'
+    | '/saved-searches'
+    | '/properties/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CompareRoute: typeof CompareRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
   SavedSearchesRoute: typeof SavedSearchesRoute
 }
@@ -82,6 +103,13 @@ declare module '@tanstack/react-router' {
       path: '/properties'
       fullPath: '/properties'
       preLoaderRoute: typeof PropertiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare': {
+      id: '/compare'
+      path: '/compare'
+      fullPath: '/compare'
+      preLoaderRoute: typeof CompareRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -115,6 +143,7 @@ const PropertiesRouteWithChildren = PropertiesRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CompareRoute: CompareRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
   SavedSearchesRoute: SavedSearchesRoute,
 }
