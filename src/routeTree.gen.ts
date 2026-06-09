@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SavedSearchesRouteImport } from './routes/saved-searches'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as PrivacyRouteImport } from './routes/privacy'
@@ -23,6 +24,11 @@ import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AgentsSlugRouteImport } from './routes/agents.$slug'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SavedSearchesRoute = SavedSearchesRouteImport.update({
   id: '/saved-searches',
   path: '/saved-searches',
@@ -100,6 +106,7 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
+  '/terms': typeof TermsRoute
   '/agents/$slug': typeof AgentsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
@@ -115,6 +122,7 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
+  '/terms': typeof TermsRoute
   '/agents/$slug': typeof AgentsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
+  '/terms': typeof TermsRoute
   '/agents/$slug': typeof AgentsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
@@ -148,6 +157,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/properties'
     | '/saved-searches'
+    | '/terms'
     | '/agents/$slug'
     | '/blog/$slug'
     | '/properties/$slug'
@@ -163,6 +173,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/properties'
     | '/saved-searches'
+    | '/terms'
     | '/agents/$slug'
     | '/blog/$slug'
     | '/properties/$slug'
@@ -178,6 +189,7 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/properties'
     | '/saved-searches'
+    | '/terms'
     | '/agents/$slug'
     | '/blog/$slug'
     | '/properties/$slug'
@@ -194,10 +206,18 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   PropertiesRoute: typeof PropertiesRouteWithChildren
   SavedSearchesRoute: typeof SavedSearchesRoute
+  TermsRoute: typeof TermsRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/saved-searches': {
       id: '/saved-searches'
       path: '/saved-searches'
@@ -336,6 +356,7 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   PropertiesRoute: PropertiesRouteWithChildren,
   SavedSearchesRoute: SavedSearchesRoute,
+  TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
