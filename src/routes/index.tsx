@@ -119,7 +119,7 @@ function Home() {
       </section>
 
       {/* Categories */}
-      <section className="container-pn -mt-10 grid gap-4 sm:grid-cols-3">
+      <section className="container-pn relative z-10 -mt-10 grid gap-4 sm:grid-cols-3">
         {categories.map((c) => (
           <Link
             key={c.status}
