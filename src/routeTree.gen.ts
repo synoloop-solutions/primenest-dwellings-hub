@@ -12,17 +12,17 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SavedSearchesRouteImport } from './routes/saved-searches'
-import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MortgageCalculatorRouteImport } from './routes/mortgage-calculator'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CompareRouteImport } from './routes/compare'
-import { Route as BlogRouteImport } from './routes/blog'
-import { Route as AgentsRouteImport } from './routes/agents'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PropertiesIndexRouteImport } from './routes/properties.index'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as AgentsIndexRouteImport } from './routes/agents.index'
 import { Route as PropertiesSlugRouteImport } from './routes/properties.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as AgentsSlugRouteImport } from './routes/agents.$slug'
@@ -40,11 +40,6 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const SavedSearchesRoute = SavedSearchesRouteImport.update({
   id: '/saved-searches',
   path: '/saved-searches',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PropertiesRoute = PropertiesRouteImport.update({
-  id: '/properties',
-  path: '/properties',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -72,16 +67,6 @@ const CompareRoute = CompareRouteImport.update({
   path: '/compare',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AgentsRoute = AgentsRouteImport.update({
-  id: '/agents',
-  path: '/agents',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AccessibilityRoute = AccessibilityRouteImport.update({
   id: '/accessibility',
   path: '/accessibility',
@@ -95,6 +80,21 @@ const AboutRoute = AboutRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PropertiesIndexRoute = PropertiesIndexRouteImport.update({
+  id: '/properties/',
+  path: '/properties/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgentsIndexRoute = AgentsIndexRouteImport.update({
+  id: '/agents/',
+  path: '/agents/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PropertiesSlugRoute = PropertiesSlugRouteImport.update({
@@ -117,59 +117,59 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
-  '/agents': typeof AgentsRouteWithChildren
-  '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/mortgage-calculator': typeof MortgageCalculatorRoute
   '/privacy': typeof PrivacyRoute
-  '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/agents/$slug': typeof AgentsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
+  '/agents/': typeof AgentsIndexRoute
+  '/blog/': typeof BlogIndexRoute
+  '/properties/': typeof PropertiesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
-  '/agents': typeof AgentsRouteWithChildren
-  '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/mortgage-calculator': typeof MortgageCalculatorRoute
   '/privacy': typeof PrivacyRoute
-  '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/agents/$slug': typeof AgentsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
+  '/agents': typeof AgentsIndexRoute
+  '/blog': typeof BlogIndexRoute
+  '/properties': typeof PropertiesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
-  '/agents': typeof AgentsRouteWithChildren
-  '/blog': typeof BlogRouteWithChildren
   '/compare': typeof CompareRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/mortgage-calculator': typeof MortgageCalculatorRoute
   '/privacy': typeof PrivacyRoute
-  '/properties': typeof PropertiesRouteWithChildren
   '/saved-searches': typeof SavedSearchesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/agents/$slug': typeof AgentsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/properties/$slug': typeof PropertiesSlugRoute
+  '/agents/': typeof AgentsIndexRoute
+  '/blog/': typeof BlogIndexRoute
+  '/properties/': typeof PropertiesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -177,75 +177,75 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/accessibility'
-    | '/agents'
-    | '/blog'
     | '/compare'
     | '/contact'
     | '/cookie-policy'
     | '/mortgage-calculator'
     | '/privacy'
-    | '/properties'
     | '/saved-searches'
     | '/sitemap.xml'
     | '/terms'
     | '/agents/$slug'
     | '/blog/$slug'
     | '/properties/$slug'
+    | '/agents/'
+    | '/blog/'
+    | '/properties/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/accessibility'
-    | '/agents'
-    | '/blog'
     | '/compare'
     | '/contact'
     | '/cookie-policy'
     | '/mortgage-calculator'
     | '/privacy'
-    | '/properties'
     | '/saved-searches'
     | '/sitemap.xml'
     | '/terms'
     | '/agents/$slug'
     | '/blog/$slug'
     | '/properties/$slug'
+    | '/agents'
+    | '/blog'
+    | '/properties'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/accessibility'
-    | '/agents'
-    | '/blog'
     | '/compare'
     | '/contact'
     | '/cookie-policy'
     | '/mortgage-calculator'
     | '/privacy'
-    | '/properties'
     | '/saved-searches'
     | '/sitemap.xml'
     | '/terms'
     | '/agents/$slug'
     | '/blog/$slug'
     | '/properties/$slug'
+    | '/agents/'
+    | '/blog/'
+    | '/properties/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AccessibilityRoute: typeof AccessibilityRoute
-  AgentsRoute: typeof AgentsRouteWithChildren
-  BlogRoute: typeof BlogRouteWithChildren
   CompareRoute: typeof CompareRoute
   ContactRoute: typeof ContactRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
   MortgageCalculatorRoute: typeof MortgageCalculatorRoute
   PrivacyRoute: typeof PrivacyRoute
-  PropertiesRoute: typeof PropertiesRouteWithChildren
   SavedSearchesRoute: typeof SavedSearchesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
+  AgentsIndexRoute: typeof AgentsIndexRoute
+  BlogIndexRoute: typeof BlogIndexRoute
+  PropertiesIndexRoute: typeof PropertiesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -269,13 +269,6 @@ declare module '@tanstack/react-router' {
       path: '/saved-searches'
       fullPath: '/saved-searches'
       preLoaderRoute: typeof SavedSearchesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/properties': {
-      id: '/properties'
-      path: '/properties'
-      fullPath: '/properties'
-      preLoaderRoute: typeof PropertiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -313,20 +306,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompareRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/agents': {
-      id: '/agents'
-      path: '/agents'
-      fullPath: '/agents'
-      preLoaderRoute: typeof AgentsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/accessibility': {
       id: '/accessibility'
       path: '/accessibility'
@@ -346,6 +325,27 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/properties/': {
+      id: '/properties/'
+      path: '/properties'
+      fullPath: '/properties/'
+      preLoaderRoute: typeof PropertiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agents/': {
+      id: '/agents/'
+      path: '/agents'
+      fullPath: '/agents/'
+      preLoaderRoute: typeof AgentsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/properties/$slug': {
@@ -372,54 +372,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AgentsRouteChildren {
-  AgentsSlugRoute: typeof AgentsSlugRoute
-}
-
-const AgentsRouteChildren: AgentsRouteChildren = {
-  AgentsSlugRoute: AgentsSlugRoute,
-}
-
-const AgentsRouteWithChildren =
-  AgentsRoute._addFileChildren(AgentsRouteChildren)
-
-interface BlogRouteChildren {
-  BlogSlugRoute: typeof BlogSlugRoute
-}
-
-const BlogRouteChildren: BlogRouteChildren = {
-  BlogSlugRoute: BlogSlugRoute,
-}
-
-const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
-
-interface PropertiesRouteChildren {
-  PropertiesSlugRoute: typeof PropertiesSlugRoute
-}
-
-const PropertiesRouteChildren: PropertiesRouteChildren = {
-  PropertiesSlugRoute: PropertiesSlugRoute,
-}
-
-const PropertiesRouteWithChildren = PropertiesRoute._addFileChildren(
-  PropertiesRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AccessibilityRoute: AccessibilityRoute,
-  AgentsRoute: AgentsRouteWithChildren,
-  BlogRoute: BlogRouteWithChildren,
   CompareRoute: CompareRoute,
   ContactRoute: ContactRoute,
   CookiePolicyRoute: CookiePolicyRoute,
   MortgageCalculatorRoute: MortgageCalculatorRoute,
   PrivacyRoute: PrivacyRoute,
-  PropertiesRoute: PropertiesRouteWithChildren,
   SavedSearchesRoute: SavedSearchesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
+  AgentsIndexRoute: AgentsIndexRoute,
+  BlogIndexRoute: BlogIndexRoute,
+  PropertiesIndexRoute: PropertiesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
