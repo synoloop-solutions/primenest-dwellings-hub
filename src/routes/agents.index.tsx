@@ -3,7 +3,7 @@ import { SectionHeading } from "@/components/section-heading";
 import { AgentCard } from "@/components/agent-card";
 import { agents } from "@/data/agents";
 
-export const Route = createFileRoute("/agents")({
+export const Route = createFileRoute("/agents/")({
   head: () => ({
     meta: [
       { title: "Our Agents — PrimeNest Realty" },
