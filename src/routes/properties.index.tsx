@@ -22,7 +22,7 @@ interface PropSearch {
   beds?: number;
 }
 
-export const Route = createFileRoute("/properties")({
+export const Route = createFileRoute("/properties/")({
   validateSearch: (search: Record<string, unknown>): PropSearch => ({
     q: typeof search.q === "string" ? search.q : undefined,
     status: typeof search.status === "string" ? search.status : undefined,

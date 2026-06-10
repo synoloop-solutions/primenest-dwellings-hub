@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/data/blog";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/blog")({
+export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
       { title: "Real Estate Blog & Insights — PrimeNest Realty" },
