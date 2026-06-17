@@ -86,11 +86,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "PrimeNest Realty — Find a Place You'll Love to Call Home" },
       { name: "description", content: "Browse luxury homes, apartments, and new developments with PrimeNest Realty. Expert agents, mortgage tools, and a seamless property search experience." },
       { name: "author", content: "PrimeNest Realty" },
-      { property: "og:title", content: "PrimeNest Realty" },
-      { property: "og:description", content: "Find your next home with PrimeNest Realty — luxury listings, expert agents, and powerful search tools." },
+      { property: "og:title", content: "PrimeNest Realty — Find a Place You'll Love to Call Home" },
+      { property: "og:description", content: "Browse luxury homes, apartments, and new developments with PrimeNest Realty. Expert agents, mortgage tools, and a seamless property search experience." },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "PrimeNest Realty" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "PrimeNest Realty — Find a Place You'll Love to Call Home" },
+      { name: "twitter:description", content: "Browse luxury homes, apartments, and new developments with PrimeNest Realty. Expert agents, mortgage tools, and a seamless property search experience." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3f9ae02a-f2d1-42e2-a94d-3d152341d530/id-preview-d7e8acd8--2b13db55-ba70-49cf-81ca-acabb11f0e7a.lovable.app-1781080899157.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3f9ae02a-f2d1-42e2-a94d-3d152341d530/id-preview-d7e8acd8--2b13db55-ba70-49cf-81ca-acabb11f0e7a.lovable.app-1781080899157.png" },
     ],
     scripts: [
       {
