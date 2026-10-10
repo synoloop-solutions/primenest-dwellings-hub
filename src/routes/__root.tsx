@@ -6,11 +6,11 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { CompareBar } from "@/components/compare-bar";
@@ -40,12 +40,9 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -93,8 +90,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "PrimeNest Realty — Find a Place You'll Love to Call Home" },
       { name: "twitter:description", content: "Browse luxury homes, apartments, and new developments with PrimeNest Realty. Expert agents, mortgage tools, and a seamless property search experience." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3f9ae02a-f2d1-42e2-a94d-3d152341d530/id-preview-d7e8acd8--2b13db55-ba70-49cf-81ca-acabb11f0e7a.lovable.app-1781080899157.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3f9ae02a-f2d1-42e2-a94d-3d152341d530/id-preview-d7e8acd8--2b13db55-ba70-49cf-81ca-acabb11f0e7a.lovable.app-1781080899157.png" },
     ],
     scripts: [
       {
